@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "575362543250",
+    "project_id": "pet-paw-7c550",
+    "storage_bucket": "pet-paw-7c550.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:575362543250:android:39b4de85ac854ca98c004b",
+        "android_client_info": {
+          "package_name": "com.example.pet_paw"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD4gcHg7cicvUpHUjmjC_5K-KR9wXD44H8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
