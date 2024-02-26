@@ -49,20 +49,20 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'Pet Paw', // Change to your app name
-          style: TextStyle(
-            color: Colors.black, // Customize text color
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        backgroundColor:
-            mobileBackgroundColor, // Customize app bar background color
-        centerTitle: true,
-        elevation: 0,
-      ),
+      // appBar: AppBar(
+      //   title: const Text(
+      //     'Pet Paw', // Change to your app name
+      //     style: TextStyle(
+      //       color: Colors.black, // Customize text color
+      //       fontSize: 20,
+      //       fontWeight: FontWeight.bold,
+      //     ),
+      //   ),
+      //   backgroundColor:
+      //       mobileBackgroundColor, // Customize app bar background color
+      //   centerTitle: true,
+      //   elevation: 0,
+      // ),
       body: PageView(
         onPageChanged: onPageChanged,
         controller: pageController,

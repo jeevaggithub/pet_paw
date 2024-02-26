@@ -11,44 +11,59 @@ class CommentCard extends StatefulWidget {
 class _CommentCardState extends State<CommentCard> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 12),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          CircleAvatar(
-            backgroundImage: NetworkImage(
-              widget.snap["profilePic"],
-            ),
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        color: Colors.grey.shade800, // Dark grey color
+        border: Border(
+          bottom: BorderSide(
+            color:
+                Colors.white.withOpacity(0.5), // White color with 0.5 opacity
+            width: 1.0, // Border width
           ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.only(left: 8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  RichText(
-                    text: TextSpan(
-                      children: [
-                        TextSpan(
-                          text: '${widget.snap["name"]}  ',
-                          style: const TextStyle(
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                        TextSpan(
-                          text: '${widget.snap["commentText"]}',
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
+        ),
+      ),
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 12),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            CircleAvatar(
+              backgroundImage: NetworkImage(
+                widget.snap["profilePic"],
               ),
             ),
-          ),
-          IconButton(onPressed: () {}, icon: const Icon(Icons.favorite_border))
-        ],
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.only(left: 8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    RichText(
+                      text: TextSpan(
+                        children: [
+                          TextSpan(
+                            text: '${widget.snap["name"]}  ',
+                            style: const TextStyle(
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                          TextSpan(
+                            text: '${widget.snap["commentText"]}',
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            IconButton(
+              onPressed: () {},
+              icon: const Icon(Icons.favorite_border),
+            )
+          ],
+        ),
       ),
     );
   }

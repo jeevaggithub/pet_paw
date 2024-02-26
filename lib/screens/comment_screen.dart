@@ -29,7 +29,7 @@ class _CommentScreenState extends State<CommentScreen> {
   @override
   Widget build(BuildContext context) {
     UserModel user = Provider.of<UserProvider>(context).getUser;
-
+    print('user : ${user.userName}');
     return Scaffold(
       appBar: AppBar(
         title: const Text('Comments'),
@@ -58,6 +58,7 @@ class _CommentScreenState extends State<CommentScreen> {
       ),
       bottomNavigationBar: SafeArea(
         child: Container(
+          color: Colors.grey.shade800, // Dark grey color
           height: kToolbarHeight,
           margin: EdgeInsets.only(
             bottom: MediaQuery.of(context).viewInsets.bottom,
@@ -65,9 +66,9 @@ class _CommentScreenState extends State<CommentScreen> {
           padding: const EdgeInsets.only(left: 16.0, right: 8.0),
           child: Row(
             children: [
-              const CircleAvatar(
+              CircleAvatar(
                 backgroundImage: NetworkImage(
-                  'https://cdn.pixabay.com/photo/2017/11/05/08/43/pawprints-2919733_640.jpg',
+                  user.photoUrl,
                 ),
                 radius: 18,
               ),

@@ -1,8 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:pet_paw/models/user_model.dart';
 import 'package:pet_paw/providers/user_provider.dart';
+import 'package:pet_paw/resources/firestore_methods.dart';
 import 'package:pet_paw/screens/comment_screen.dart';
+import 'package:pet_paw/utils/colors.dart';
 import 'package:pet_paw/utils/utils.dart';
+import 'package:pet_paw/widgets/like_animation.dart';
 import 'package:provider/provider.dart';
 
 class PostCard extends StatefulWidget {
@@ -25,9 +29,13 @@ class _PostCardState extends State<PostCard> {
 
   void getCommentLen() async {
     try {
-      // Simulating fetching comment length from Firestore
-      // Replace this with actual logic to fetch comment length
-      commentLen = 10; // Example: Hardcoded comment length
+      QuerySnapshot snap = await FirebaseFirestore.instance
+          .collection('posts')
+          .doc(widget.snap['postId'])
+          .collection('comments')
+          .get();
+
+      commentLen = snap.docs.length;
     } catch (e) {
       showSnackBar(e.toString(), context);
     }
@@ -65,26 +73,62 @@ class _PostCardState extends State<PostCard> {
               fit: BoxFit.cover,
             ),
           ),
+          const SizedBox(
+            height: 2.0,
+          ),
+          RichText(
+            text: TextSpan(
+              style: const TextStyle(color: primaryColor),
+              children: [
+                TextSpan(
+                  text: "${widget.snap['userName']} : ",
+                  style: const TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                TextSpan(
+                    text: '  ${widget.snap['description']}',
+                    style: TextStyle(color: Colors.black)),
+              ],
+            ),
+          ),
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                IconButton(
-                  onPressed: () async {
-                    // Like functionality
-                    setState(() {
-                      isLikeAnimating = true;
-                    });
-                  },
-                  icon: Icon(
-                    widget.snap['likes'].contains(user.uid)
-                        ? Icons.favorite
-                        : Icons.favorite_border,
-                    color: widget.snap['likes'].contains(user.uid)
-                        ? Colors.red
-                        : Colors.black,
-                  ),
+                Row(
+                  children: [
+                    LikeAnimation(
+                      isAnimating: widget.snap['likes'].contains(user.uid),
+                      smallLike: true,
+                      child: IconButton(
+                        onPressed: () async {
+                          await FirestoreMethods().likePost(
+                              widget.snap["postId"],
+                              user.uid,
+                              widget.snap["likes"]);
+                          setState(() {
+                            isLikeAnimating = true;
+                          });
+                        },
+                        icon: widget.snap['likes'].contains(user.uid)
+                            ? const Icon(
+                                Icons.favorite,
+                                color: Colors.red,
+                              )
+                            : const Icon(
+                                Icons.favorite_border_outlined,
+                                color: Colors.black,
+                              ),
+                      ),
+                    ),
+                    Text(
+                      '${widget.snap['likes'].length} likes',
+                      style: TextStyle(color: Colors.black),
+                    ),
+                  ],
                 ),
                 IconButton(
                   onPressed: () => Navigator.of(context).push(
@@ -99,11 +143,15 @@ class _PostCardState extends State<PostCard> {
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: Text(
-              'View all $commentLen comments',
-              style: const TextStyle(
-                color: Colors.grey,
-              ),
+            child: Column(
+              children: [
+                Text(
+                  'View all $commentLen comments',
+                  style: const TextStyle(
+                    color: Colors.grey,
+                  ),
+                ),
+              ],
             ),
           ),
         ],

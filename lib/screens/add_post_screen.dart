@@ -130,17 +130,18 @@ class _AddPostScreenState extends State<AddPostScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const FeedScreen()),
-            );
-            clearFile();
-          },
-          icon: const Icon(Icons.arrow_back,
-              color: Color.fromARGB(255, 255, 246, 246)),
-        ),
+        centerTitle: true,
+        // leading: IconButton(
+        //   onPressed: () {
+        //     Navigator.push(
+        //       context,
+        //       MaterialPageRoute(builder: (context) => const FeedScreen()),
+        //     );
+        //     clearFile();
+        //   },
+        //   icon: const Icon(Icons.arrow_back,
+        //       color: Color.fromARGB(255, 255, 246, 246)),
+        // ),
         title: const Text(
           'Create Post',
           style: TextStyle(color: Colors.white),
